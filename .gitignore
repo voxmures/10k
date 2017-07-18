@@ -1,0 +1,6 @@
+# Code::Blocks
+bin
+obj
+
+# Jin's env specific
+FirstSDLProject.*
