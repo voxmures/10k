@@ -27,8 +27,8 @@ void Player::move(int direction) {
     }
 }
 
-LTexture* Player::getTexture() {
-    return &mTexture;
+LTexture Player::getTexture() {
+    return mTexture;
 }
 
 void Player::setTexture(LTexture texture) {

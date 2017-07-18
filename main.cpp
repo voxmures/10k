@@ -1,6 +1,14 @@
 // Using SDL and standard IO
-#include <SDL.h>
-#include <SDL_image.h>
+#ifdef __linux__ 
+    //linux code goes here
+	#include <SDL2/SDL.h>
+	#include <SDL2/SDL_image.h>
+#elif _WIN32
+	//windows code goes here 
+	#include <SDL.h>
+	#include <SDL_image.h>
+#endif
+
 #include <stdio.h>
 #include <string>
 
@@ -24,6 +32,9 @@ SDL_Renderer* gRenderer = NULL;
 
 // Player
 Player player;
+
+// Sprite texture
+LTexture gSpriteSheetTexture;
 
 // Current animation frame
 int frame = 0;
@@ -67,9 +78,6 @@ bool init() {
 
 bool loadMedia() {
 
-    // Sprite texture
-    LTexture gSpriteSheetTexture;
-
     // Set renderer to LTexture object
     gSpriteSheetTexture.setRenderer(gRenderer);
 
@@ -78,6 +86,7 @@ bool loadMedia() {
         printf("Failed to load texture image\n");
         return false;
     }
+
 
     player.setTexture(gSpriteSheetTexture);
 
@@ -96,7 +105,7 @@ bool loadMedia() {
 
 void close() {
     // Free loaded images
-    player.getTexture()->free();
+    player.getTexture().free();
     //player.setTexture();
 
     // Destroy window
@@ -112,11 +121,12 @@ void close() {
 
 void paint() {
     // Clear screen
+	SDL_SetRenderDrawColor( gRenderer, 0xFF, 0xFF, 0xFF, 0xFF );
     SDL_RenderClear(gRenderer);
 
     //Render current frame
     SDL_Rect* currentClip = &gSpriteClips[frame / 6];
-    player.getTexture()->render(player.getPosX(), player.getPosY(), currentClip);
+    player.getTexture().render(player.getPosX(), player.getPosY(), currentClip);
 
     //Update screen
     SDL_RenderPresent(gRenderer);
@@ -128,6 +138,10 @@ void paint() {
     if (frame / 6 >= IDLE_ANIMATION_FRAMES) {
         frame = 0;
     }
+
+	//SDL_UpdateWindowSurface(gWindow);
+	//printf("Update frame");
+
 }
 
 int main(int argc, char* args[]) {

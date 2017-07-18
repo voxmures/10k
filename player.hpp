@@ -21,7 +21,7 @@ class Player {
         int getPosX();
         int getPosY();
 
-        LTexture* getTexture();
+        LTexture getTexture();
         void setTexture(LTexture texture);
 
     private:

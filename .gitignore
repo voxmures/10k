@@ -4,3 +4,8 @@ obj
 
 # Jin's env specific
 FirstSDLProject.*
+
+#Linux specific
+Makefile
+*.x
+
