@@ -1,6 +1,13 @@
 #include "Game.h"
 
-//#include "SDLGameObject.h"
+#ifdef __linux__
+    //linux code goes here
+	#include <SDL2/SDL_image.h>
+#elif _WIN32
+	//windows code goes here
+	#include <SDL_image.h>
+#endif
+
 #include "Player.h"
 #include "Enemy.h"
 #include "TextureManager.h"
