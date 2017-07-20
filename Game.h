@@ -1,7 +1,7 @@
 #ifndef __Game__
 #define __Game__
 
-#include "TextureManager.h"
+#include "Player.h"
 
 class Game {
 public:
@@ -24,8 +24,8 @@ private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
 
-    // Texture Manager instance
-    int m_currentFrame;
+    GameObject m_go;
+    Player m_player;
 
     bool m_bRunning;
 };

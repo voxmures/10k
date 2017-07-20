@@ -36,6 +36,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
+    m_go.load(100, 100, 24, 38, "sonic");
+    m_player.load(300, 300, 24, 38, "sonic");
+
     m_bRunning = true;
     return true;
 }
@@ -43,14 +46,16 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // Clear the renderer to the draw color
 
-    TheTextureManager::Instance()->draw("sonic", 0, 0, 24, 38, m_pRenderer);
-    TheTextureManager::Instance()->drawFrame("sonic", 100, 100, 24, 38, 1, m_currentFrame, m_pRenderer);
+    m_go.draw(m_pRenderer);
+    m_player.draw(m_pRenderer);
 
     SDL_RenderPresent(m_pRenderer); // Draw to the screen
 }
 
 void Game::update() {
-    m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+    //m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
+    m_go.update();
+    m_player.update();
 }
 
 void Game::handleEvents() {
