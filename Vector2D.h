@@ -63,8 +63,8 @@ public:
     float getX() { return m_x; }
     float getY() { return m_y; }
 
-    void setX() { m_x = x; }
-    void setY() { m_y = y; }
+    void setX(float x) { m_x = x; }
+    void setY(float y) { m_y = y; }
 
 private:
     float m_x, m_y;
