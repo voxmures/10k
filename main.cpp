@@ -1,26 +1,25 @@
 #include <stdio.h>
 #include "Game.h"
 
-// Our game object
-Game* g_game = 0;
-
 // Screen dimension constants
 const int SCREEN_WIDTH = 640;
 const int SCREEN_HEIGHT = 480;
 
 int main(int argc, char* args[]) {
-    g_game = new Game();
 
-    g_game->init("10k", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN);
+    if(!TheGame::Instance()->init("10k", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_SHOWN)) {
+        printf("Unable to init the game! SDL Error: %s\n", SDL_GetError());
+        return -1;
+    }
 
-    while(g_game->running()) {
-        g_game->handleEvents();
-        g_game->update();
-        g_game->render();
+    while(TheGame::Instance()->running()) {
+        TheGame::Instance()->handleEvents();
+        TheGame::Instance()->update();
+        TheGame::Instance()->render();
 
         SDL_Delay(10);
     }
-    g_game->clean();
+    TheGame::Instance()->clean();
 
 	return 0;
 }

@@ -4,11 +4,9 @@
 #ifdef __linux__
     //linux code goes here
 	#include <SDL2/SDL.h>
-	#include <SDL2/SDL_image.h>
 #elif _WIN32
 	//windows code goes here
 	#include <SDL.h>
-	#include <SDL_image.h>
 #endif
 
 #include <string>

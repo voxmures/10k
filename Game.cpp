@@ -1,5 +1,12 @@
 #include "Game.h"
 
+//#include "SDLGameObject.h"
+#include "Player.h"
+#include "Enemy.h"
+#include "TextureManager.h"
+
+Game* Game::s_pInstance = 0;
+
 bool Game::init(const char* title, int xpos, int ypos, int width, int height, int flags) {
     // Initialize SDL
 	if (SDL_Init(SDL_INIT_VIDEO) < 0) {
@@ -36,17 +43,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-    m_go = new GameObject();
-    m_player = new Player();
-    m_enemy = new Enemy();
-
-    m_go->load(100, 100, 24, 38, "sonic");
-    m_player->load(300, 300, 24, 38, "sonic");
-    m_enemy->load(0, 0, 24, 38, "sonic");
-
-    m_gameObjects.push_back(m_go);
-    m_gameObjects.push_back(m_player);
-    m_gameObjects.push_back(m_enemy);
+    m_gameObjects.push_back(new Player(new LoaderParams(300, 300, 24, 38, "sonic")));
+    m_gameObjects.push_back(new Enemy(new LoaderParams(0, 0, 24, 38, "sonic")));
 
     m_bRunning = true;
     return true;
@@ -56,7 +54,7 @@ void Game::render() {
     SDL_RenderClear(m_pRenderer); // Clear the renderer to the draw color
 
     for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw(m_pRenderer);
+        m_gameObjects[i]->draw();
     }
 
     SDL_RenderPresent(m_pRenderer); // Draw to the screen

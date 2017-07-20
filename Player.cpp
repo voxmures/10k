@@ -1,15 +1,22 @@
 #include "Player.h"
 
-void Player::load(int x, int y, int width, int height, string textureId) {
-    GameObject::load(x, y, width, height, textureId);
-}
+#ifdef __linux__
+    //linux code goes here
+	#include <SDL2/SDL.h>
+#elif _WIN32
+	//windows code goes here
+	#include <SDL.h>
+#endif
 
-void Player::draw(SDL_Renderer* pRenderer) {
-    GameObject::draw(pRenderer);
+Player::Player(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+
+void Player::draw() {
+    SDLGameObject::draw();
 }
 
 void Player::update() {
     m_x -= 1;
+    m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 }
 
 void Player::clean() {}

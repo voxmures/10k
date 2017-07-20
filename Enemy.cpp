@@ -1,11 +1,17 @@
 #include "Enemy.h"
 
-void Enemy::load(int x, int y, int width, int height, string textureId) {
-    GameObject::load(x, y, width, height, textureId);
-}
+#ifdef __linux__
+    //linux code goes here
+	#include <SDL2/SDL.h>
+#elif _WIN32
+	//windows code goes here
+	#include <SDL.h>
+#endif
 
-void Enemy::draw(SDL_Renderer* pRenderer) {
-    GameObject::draw(pRenderer);
+Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+
+void Enemy::draw() {
+    SDLGameObject::draw();
 }
 
 void Enemy::update() {

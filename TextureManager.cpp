@@ -1,5 +1,13 @@
 #include "TextureManager.h"
 
+#ifdef __linux__
+    //linux code goes here
+	#include <SDL2/SDL_image.h>
+#elif _WIN32
+	//windows code goes here
+	#include <SDL_image.h>
+#endif
+
 TextureManager* TextureManager::s_pInstance = 0;
 
 bool TextureManager::load(string filename, string id, SDL_Renderer* pRenderer) {
