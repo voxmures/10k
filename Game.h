@@ -26,7 +26,6 @@ private:
 
     // Texture Manager instance
     int m_currentFrame;
-    TextureManager m_textureManager;
 
     bool m_bRunning;
 };

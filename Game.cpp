@@ -31,7 +31,7 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-    if(!m_textureManager.load("img/sonic_spritesheet.png", "sonic", m_pRenderer)) {
+    if(!TheTextureManager::Instance()->load("img/sonic_spritesheet.png", "sonic", m_pRenderer)) {
         printf("Unable to load media!");
         return false;
     }
@@ -43,8 +43,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // Clear the renderer to the draw color
 
-    m_textureManager.draw("sonic", 0, 0, 24, 38, m_pRenderer);
-    m_textureManager.drawFrame("sonic", 100, 100, 24, 38, 1, m_currentFrame, m_pRenderer);
+    TheTextureManager::Instance()->draw("sonic", 0, 0, 24, 38, m_pRenderer);
+    TheTextureManager::Instance()->drawFrame("sonic", 100, 100, 24, 38, 1, m_currentFrame, m_pRenderer);
 
     SDL_RenderPresent(m_pRenderer); // Draw to the screen
 }
