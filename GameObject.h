@@ -7,10 +7,10 @@ using namespace std;
 
 class GameObject {
 public:
-    void load(int x, int y, int width, int height, string textureId);
-    void draw(SDL_Renderer* pRenderer);
-    void update();
-    void clean();
+    virtual void load(int x, int y, int width, int height, string textureId);
+    virtual void draw(SDL_Renderer* pRenderer);
+    virtual void update();
+    virtual void clean();
 
 protected:
     string m_textureId;
