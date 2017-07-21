@@ -8,6 +8,8 @@
 	#include <SDL_image.h>
 #endif
 
+#include <stdio.h>
+
 TextureManager* TextureManager::s_pInstance = 0;
 
 bool TextureManager::load(string filename, string id, SDL_Renderer* pRenderer) {

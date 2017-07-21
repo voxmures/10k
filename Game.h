@@ -21,7 +21,6 @@ public:
     static Game* Instance() {
         if (s_pInstance == 0) {
             s_pInstance = new Game();
-            return s_pInstance;
         }
         return s_pInstance;
     }
@@ -33,6 +32,7 @@ public:
     void update();
     void handleEvents();
     void clean();
+    void quit();
 
     bool running() { return m_bRunning; }
 

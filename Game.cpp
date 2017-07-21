@@ -8,9 +8,12 @@
 	#include <SDL_image.h>
 #endif
 
+#include <stdio.h>
+
 #include "Player.h"
 #include "Enemy.h"
 #include "TextureManager.h"
+#include "InputHandler.h"
 
 Game* Game::s_pInstance = 0;
 
@@ -53,6 +56,8 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
     m_gameObjects.push_back(new Player(new LoaderParams(300, 300, 24, 38, "sonic")));
     m_gameObjects.push_back(new Enemy(new LoaderParams(0, 0, 24, 38, "sonic")));
 
+    TheInputHandler::Instance()->initialiseJoysticks();
+
     m_bRunning = true;
     return true;
 }
@@ -74,18 +79,18 @@ void Game::update() {
 }
 
 void Game::handleEvents() {
-    SDL_Event e;
-    if(SDL_PollEvent(&e)) {
-        // Users requests quit
-        if (e.type == SDL_QUIT) {
-            m_bRunning = false;
-        }
-    }
+    TheInputHandler::Instance()->update();
 }
 
 void Game::clean() {
+    TheInputHandler::Instance()->clean();
+
     SDL_DestroyWindow(m_pWindow);
     SDL_DestroyRenderer(m_pRenderer);
     IMG_Quit();
     SDL_Quit();
+}
+
+void Game::quit() {
+    m_bRunning = false;
 }
