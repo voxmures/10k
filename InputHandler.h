@@ -31,22 +31,38 @@ public:
     int xvalue(int joy, int stick);
     int yvalue(int joy, int stick);
 
+    bool getButtonState(int joy, int buttonNumber);
+
     bool joysticksInitialised() {
         return m_bJoysticksInitialised;
     }
+
+    bool isKeyDown(SDL_Scancode key);
 
     void update();
     void clean();
 
 private:
-    const int m_joystickDeadZone = 10000;
-
     InputHandler() {}
     ~InputHandler() {}
 
+    const int m_joystickDeadZone = 10000;
+
     vector<SDL_Joystick*> m_joysticks;
     vector< pair<Vector2D*, Vector2D*> > m_joystickValues;
+    vector< vector<bool> > m_buttonStates;
     bool m_bJoysticksInitialised;
+
+    const Uint8* m_keystates;
+
+    // Keyboard handlers
+    void onKeyDown();
+    void onKeyUp();
+
+    // Joystick handlers
+    void onJoystickAxisMove(SDL_Event& e);
+    void onJoystickButtonDown(SDL_Event& e);
+    void onJoystickButtonUp(SDL_Event& e);
 };
 
 typedef InputHandler TheInputHandler;
