@@ -30,6 +30,10 @@ public:
     void draw(string id, int x, int y, int width, int height, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
     void drawFrame(string id, int x, int y, int width, int height, int currentRow, int currentFrame, SDL_Renderer* pRenderer, SDL_RendererFlip flip = SDL_FLIP_NONE);
 
+    void clearFromTextureMap(string id) {
+        m_textureMap.erase(id);
+    }
+
 private:
     TextureManager() {}
 

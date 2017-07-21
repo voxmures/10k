@@ -11,6 +11,7 @@
 
 #include <vector>
 #include "GameObject.h"
+#include "GameStateMachine.h"
 
 using namespace std;
 
@@ -45,7 +46,9 @@ private:
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
 
-    vector<GameObject*> m_gameObjects;
+//    vector<GameObject*> m_gameObjects;
+
+    GameStateMachine* m_pGameStateMachine;
 
     bool m_bRunning;
 };

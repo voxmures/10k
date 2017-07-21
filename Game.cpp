@@ -10,6 +10,8 @@
 
 #include <stdio.h>
 
+#include "MenuState.h"
+#include "PlayState.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "TextureManager.h"
@@ -48,15 +50,18 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
-    if(!TheTextureManager::Instance()->load("img/sonic_spritesheet.png", "sonic", m_pRenderer)) {
-        printf("Unable to load media!");
-        return false;
-    }
+//    if(!TheTextureManager::Instance()->load("img/sonic_spritesheet.png", "sonic", m_pRenderer)) {
+//        printf("Unable to load media!");
+//        return false;
+//    }
 
-    m_gameObjects.push_back(new Player(new LoaderParams(300, 300, 24, 38, "sonic")));
-    m_gameObjects.push_back(new Enemy(new LoaderParams(0, 0, 24, 38, "sonic")));
+//    m_gameObjects.push_back(new Player(new LoaderParams(300, 300, 24, 38, "sonic")));
+//    m_gameObjects.push_back(new Enemy(new LoaderParams(0, 0, 24, 38, "sonic")));
 
     TheInputHandler::Instance()->initialiseJoysticks();
+
+    m_pGameStateMachine = new GameStateMachine();
+    m_pGameStateMachine->changeState(new MenuState());
 
     m_bRunning = true;
     return true;
@@ -65,21 +70,21 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 void Game::render() {
     SDL_RenderClear(m_pRenderer); // Clear the renderer to the draw color
 
-    for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw();
-    }
+    m_pGameStateMachine->render();
 
     SDL_RenderPresent(m_pRenderer); // Draw to the screen
 }
 
 void Game::update() {
-    for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->update();
-    }
+    m_pGameStateMachine->update();
 }
 
 void Game::handleEvents() {
     TheInputHandler::Instance()->update();
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+        m_pGameStateMachine->changeState(new PlayState());
+    }
 }
 
 void Game::clean() {

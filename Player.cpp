@@ -68,6 +68,4 @@ void Player::handleInput() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_velocity.setX(2);
     }
-
-
 }
