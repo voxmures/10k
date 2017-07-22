@@ -17,21 +17,7 @@ public:
     virtual void update();
     virtual void clean();
 
-    void setNextButton(MenuButton* next) {
-        nextButton = next;
-    }
-
-    void setPrevButton(MenuButton* prev) {
-        prevButton = prev;
-    }
-
-    void setSelected() { m_currentFrame = SELECTED; }
-
-private:
-    MenuButton* nextButton;
-    MenuButton* prevButton;
-
-    void handleInput();
+    void setState(bool selected);
 };
 
 #endif // __MenuButton__

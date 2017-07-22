@@ -84,6 +84,16 @@ void Game::handleEvents() {
 
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
         m_pGameStateMachine->changeState(new PlayState());
+    } else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
+        //m_pGameStateMachine->popState();
+        //m_pGameStateMachine->changeState(new MenuState(1));
+        //m_pGameStateMachine->update();
+        //m_pGameStateMachine->render();
+    } else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
+        //m_pGameStateMachine->popState();
+        //m_pGameStateMachine->changeState(new MenuState(1));
+        //m_pGameStateMachine->update();
+        //m_pGameStateMachine->render();
     }
 }
 

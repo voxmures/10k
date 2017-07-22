@@ -10,6 +10,8 @@ using namespace std;
 
 class MenuState : public GameState {
 public:
+    MenuState() {};
+
     virtual void update();
     virtual void render();
 
@@ -20,6 +22,7 @@ public:
 
 private:
     static const string s_menuId;
+    int current_index;
 
     vector<GameObject*> m_gameObjects;
 };
