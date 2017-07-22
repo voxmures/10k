@@ -18,6 +18,8 @@ private:
     int selectedIndex = 0;
 
     void handleInput();
+
+    bool m_bReleased = true;
 };
 
 #endif // __MenuButtonContainer__

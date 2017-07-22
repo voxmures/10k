@@ -38,6 +38,7 @@ public:
     bool running() { return m_bRunning; }
 
     SDL_Renderer* getRenderer() const { return m_pRenderer; }
+    GameStateMachine* getGameStateMachine() const { return m_pGameStateMachine; }
 
 private:
     Game() {}
@@ -45,8 +46,6 @@ private:
     // The window we'll be rendering to and its renderer
     SDL_Window* m_pWindow;
     SDL_Renderer* m_pRenderer;
-
-//    vector<GameObject*> m_gameObjects;
 
     GameStateMachine* m_pGameStateMachine;
 

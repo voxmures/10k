@@ -1,4 +1,5 @@
 #include "MenuState.h"
+#include "PlayState.h"
 #include "Game.h"
 #include "TextureManager.h"
 #include "MenuButton.h"
@@ -31,20 +32,14 @@ bool MenuState::onEnter() {
         }
 
 
-    MenuButton* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playbutton"));
+    MenuButton* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playbutton"), s_menuToPlay);
     button1->setState(true);
-    MenuButton* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitbutton"));
+    MenuButton* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitbutton"), s_exitFromMenu);
 
     MenuButtonContainer* menuButtonContainer = new MenuButtonContainer();
 
     menuButtonContainer->addButton(button1);
     menuButtonContainer->addButton(button2);
-//    if (this->current_index == 0) {
-//        button2->setSelected();
-//    } else if (this->current_index == 1) {
-//        cout << "Current index: " << this->current_index << endl;
-//        button1->setSelected();
-//    }
 
     m_gameObjects.push_back(menuButtonContainer);
 
@@ -62,4 +57,14 @@ bool MenuState::onExit() {
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
     printf("Exiting MenuState\n");
     return true;
+}
+
+void MenuState::s_menuToPlay() {
+    printf("Play button pressed!\n");
+    TheGame::Instance()->getGameStateMachine()->changeState(new PlayState());
+}
+
+void MenuState::s_exitFromMenu() {
+    printf("Exit button pressed!\n");
+    TheGame::Instance()->quit();
 }

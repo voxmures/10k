@@ -43,16 +43,27 @@ void MenuButtonContainer::handleInput() {
         }
     }
 
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN) && m_bReleased) {
+        m_menuButtons[selectedIndex]->doAction();
+        m_bReleased = false;
+    }
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) && m_bReleased) {
         selectedIndex -= 1;
         if (selectedIndex < 0) {
             selectedIndex = m_menuButtons.size() - 1;
         }
+        m_bReleased = false;
     }
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN)) {
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) && m_bReleased) {
         selectedIndex += 1;
         if (selectedIndex == m_menuButtons.size()) {
             selectedIndex = 0;
         }
+        m_bReleased = false;
+    }
+    else if (!TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) &&
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) &&
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+        m_bReleased = true;
     }
 }
