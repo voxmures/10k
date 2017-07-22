@@ -10,12 +10,13 @@
 
 #include <stdio.h>
 
+#include "TextureManager.h"
+#include "InputHandler.h"
+
 #include "MenuState.h"
 #include "PlayState.h"
 #include "Player.h"
 #include "Enemy.h"
-#include "TextureManager.h"
-#include "InputHandler.h"
 
 Game* Game::s_pInstance = 0;
 
@@ -49,14 +50,6 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         printf("SDL_image could not initialize! SDL_image Error: %s\n", IMG_GetError());
         return false;
     }
-
-//    if(!TheTextureManager::Instance()->load("img/sonic_spritesheet.png", "sonic", m_pRenderer)) {
-//        printf("Unable to load media!");
-//        return false;
-//    }
-
-//    m_gameObjects.push_back(new Player(new LoaderParams(300, 300, 24, 38, "sonic")));
-//    m_gameObjects.push_back(new Enemy(new LoaderParams(0, 0, 24, 38, "sonic")));
 
     TheInputHandler::Instance()->initialiseJoysticks();
 

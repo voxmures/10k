@@ -27,7 +27,9 @@ void Player::update() {
     SDLGameObject::update();
 }
 
-void Player::clean() {}
+void Player::clean() {
+    SDLGameObject::clean();
+}
 
 void Player::handleInput() {
     if (TheInputHandler::Instance()->joysticksInitialised()) {

@@ -1,6 +1,9 @@
 #ifndef __PlayState__
 #define __PlayState__
 
+#include <vector>
+
+#include "GameObject.h"
 #include "GameState.h"
 
 using namespace std;
@@ -17,6 +20,8 @@ public:
 
 private:
     static const string s_playId;
+
+    vector<GameObject*> m_gameObjects;
 };
 
 #endif // __PlayState__

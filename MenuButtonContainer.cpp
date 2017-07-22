@@ -25,6 +25,7 @@ void MenuButtonContainer::clean() {
     for (int i = 0; i < m_menuButtons.size(); ++i) {
         m_menuButtons[i]->clean();
     }
+    m_menuButtons.clear();
 }
 
 void MenuButtonContainer::handleInput() {

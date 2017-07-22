@@ -1,10 +1,13 @@
 #include "MenuState.h"
-#include "PlayState.h"
+
+#include <stdio.h>
+
 #include "Game.h"
 #include "TextureManager.h"
+
+#include "PlayState.h"
 #include "MenuButton.h"
 #include "MenuButtonContainer.h"
-#include <stdio.h>
 
 const string MenuState::s_menuId = "MENU";
 
@@ -55,6 +58,7 @@ bool MenuState::onExit() {
 
     TheTextureManager::Instance()->clearFromTextureMap("playbutton");
     TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+
     printf("Exiting MenuState\n");
     return true;
 }

@@ -7,6 +7,9 @@ using namespace std;
 
 class MenuButtonContainer : public GameObject {
 public:
+    MenuButtonContainer() {}
+    ~MenuButtonContainer() {}
+
     void addButton(MenuButton* button);
 
     virtual void draw();
