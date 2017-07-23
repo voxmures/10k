@@ -8,4 +8,7 @@ FirstSDLProject.*
 #Linux specific
 Makefile
 *.x
+*.o
 
+#Carlos env specific
+.vscode

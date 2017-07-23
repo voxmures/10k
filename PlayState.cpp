@@ -10,7 +10,6 @@
 const string PlayState::s_playId = "PLAY";
 
 void PlayState::update() {
-    printf("HOLA QUE PASA!");
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->update();
     }

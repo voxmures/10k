@@ -88,3 +88,12 @@ void Game::clean() {
 void Game::quit() {
     m_bRunning = false;
 }
+
+GameStateMachine* Game::getGameStateMachine() { 
+    if (m_pGameStateMachine)
+       printf("Hay un gameStateMachine \n");
+    else
+        printf("No hay gameStateMachine en el TheGame \n");
+        
+    return m_pGameStateMachine; 
+}

@@ -1,7 +1,6 @@
 #include "MenuState.h"
 
 #include <stdio.h>
-
 #include "Game.h"
 #include "TextureManager.h"
 
@@ -10,10 +9,15 @@
 #include "MenuButtonContainer.h"
 
 const string MenuState::s_menuId = "MENU";
+bool alive = true;
 
 void MenuState::update() {
-    for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
+    int nObjects = m_gameObjects.size();
+    int i = 0;
+    while(i < nObjects) {
         m_gameObjects[i]->update();
+        nObjects = m_gameObjects.size();
+        ++i;
     }
 }
 
@@ -66,6 +70,8 @@ bool MenuState::onExit() {
 void MenuState::s_menuToPlay() {
     printf("Play button pressed!\n");
     TheGame::Instance()->getGameStateMachine()->changeState(new PlayState());
+    alive = false;
+    printf("State changed to play\n");
 }
 
 void MenuState::s_exitFromMenu() {
