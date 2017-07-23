@@ -5,6 +5,7 @@
 
 #include "GameObject.h"
 #include "GameState.h"
+#include "AgentsHub.h"
 
 using namespace std;
 
@@ -22,6 +23,7 @@ private:
     static const string s_playId;
 
     vector<GameObject*> m_gameObjects;
+    AgentsHub hub;
 };
 
 #endif // __PlayState__

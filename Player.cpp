@@ -25,6 +25,7 @@ void Player::update() {
     m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 
     SDLGameObject::update();
+
 }
 
 void Player::clean() {
@@ -70,4 +71,8 @@ void Player::handleInput() {
     if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RIGHT)) {
         m_velocity.setX(2);
     }
+}
+
+Vector2D* Player::getPlayerPos() {
+    return &m_position;
 }

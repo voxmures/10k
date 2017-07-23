@@ -2,6 +2,7 @@
 #define __Player__
 
 #include "SDLGameObject.h"
+#include "Vector2D.h"
 
 class Player : public SDLGameObject {
 public:
@@ -10,6 +11,8 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+
+    Vector2D* getPlayerPos();
 
 private:
     void handleInput();

@@ -2,6 +2,7 @@
 #define __Enemy__
 
 #include "SDLGameObject.h"
+#include "Vector2D.h"
 
 using namespace std;
 
@@ -12,6 +13,15 @@ public:
     virtual void draw();
     virtual void update();
     virtual void clean();
+
+    void setPlayerPos(Vector2D* pos);
+
+
+private:
+
+    Vector2D* playerPos;
+    void nextAction();
 };
+
 
 #endif // __Enemy__
