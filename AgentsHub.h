@@ -12,9 +12,9 @@ public:
 
     void updateInformation();
 
+    bool checkCollision();
 
 private:
-
     Player* player;
     Enemy* enemy;
 };

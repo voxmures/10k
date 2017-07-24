@@ -12,8 +12,6 @@ public:
     virtual void update();
     virtual void clean();
 
-    Vector2D* getPlayerPos();
-
 private:
     void handleInput();
 };

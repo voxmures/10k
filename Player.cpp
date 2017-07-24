@@ -72,7 +72,3 @@ void Player::handleInput() {
         m_velocity.setX(2);
     }
 }
-
-Vector2D* Player::getPlayerPos() {
-    return &m_position;
-}

@@ -62,18 +62,18 @@ void Enemy::nextAction() {
         case 2:
             m_velocity.setX(2);
             break;
-        case 3:  
+        case 3:
             m_velocity.setX(-2);
             break;
         default:
             m_velocity.setX(0);
-            break;  
+            break;
     }
 
 }
 
-void Enemy::setPlayerPos(Vector2D* pos) {
-    playerPos = pos;
+void Enemy::setPlayerPos(Vector2D& pos) {
+    playerPos = &pos;
 }
 
 void Enemy::clean() {}

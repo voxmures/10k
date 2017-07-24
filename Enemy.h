@@ -14,12 +14,11 @@ public:
     virtual void update();
     virtual void clean();
 
-    void setPlayerPos(Vector2D* pos);
-
+    void setPlayerPos(Vector2D& pos);
 
 private:
-
     Vector2D* playerPos;
+
     void nextAction();
 };
 

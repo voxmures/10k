@@ -7,6 +7,7 @@
 #include "Game.h"
 
 #include "PauseState.h"
+#include "GameOverState.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Vector2D.h"
@@ -21,6 +22,10 @@ void PlayState::update() {
     hub.updateInformation();
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->update();
+    }
+
+    if (hub.checkCollision()) {
+        TheGame::Instance()->getGameStateMachine()->changeState(new GameOverState());
     }
 }
 
