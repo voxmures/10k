@@ -2,9 +2,11 @@
 
 #include <stdio.h>
 
+#include "InputHandler.h"
 #include "TextureManager.h"
 #include "Game.h"
 
+#include "PauseState.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Vector2D.h"
@@ -12,6 +14,10 @@
 const string PlayState::s_playId = "PLAY";
 
 void PlayState::update() {
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_ESCAPE)) {
+        TheGame::Instance()->getGameStateMachine()->pushState(new PauseState());
+    }
+
     hub.updateInformation();
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->update();

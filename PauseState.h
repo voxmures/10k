@@ -1,5 +1,5 @@
-#ifndef __MenuState__
-#define __MenuState__
+#ifndef __PauseState__
+#define __PauseState__
 
 #include <vector>
 
@@ -8,9 +8,9 @@
 
 using namespace std;
 
-class MenuState : public GameState {
+class PauseState : public GameState {
 public:
-    MenuState() {};
+    PauseState() {};
 
     virtual void update();
     virtual void render();
@@ -18,16 +18,17 @@ public:
     virtual bool onEnter();
     virtual bool onExit();
 
-    virtual string getStateId() const { return s_menuId; }
+    virtual string getStateId() const { return s_pauseId; }
 
 private:
-    static const string s_menuId;
+    static const string s_pauseId;
 
     vector<GameObject*> m_gameObjects;
 
     // callback functions for menu items
-    static void s_menuToPlay();
-    static void s_exitFromMenu();
+    static void s_pauseToMain();
+    static void s_resumePlay();
 };
 
-#endif // __MenuState__
+#endif // __PauseState__
+

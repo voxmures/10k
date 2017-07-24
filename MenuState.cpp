@@ -9,7 +9,6 @@
 #include "MenuButtonContainer.h"
 
 const string MenuState::s_menuId = "MENU";
-bool alive = true;
 
 void MenuState::update() {
     int nObjects = m_gameObjects.size();
@@ -70,7 +69,6 @@ bool MenuState::onExit() {
 void MenuState::s_menuToPlay() {
     printf("Play button pressed!\n");
     TheGame::Instance()->getGameStateMachine()->changeState(new PlayState());
-    alive = false;
     printf("State changed to play\n");
 }
 

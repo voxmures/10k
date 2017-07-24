@@ -22,7 +22,7 @@ private:
 
     void handleInput();
 
-    bool m_bReleased = true;
+    bool m_bReleased = false;
 };
 
 #endif // __MenuButtonContainer__
