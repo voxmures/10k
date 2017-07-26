@@ -10,7 +10,7 @@
 
 #include "InputHandler.h"
 
-AnimatedGraphic::AnimatedGraphic(const LoaderParams* pParams) : SDLGameObject(pParams) {
+AnimatedGraphic::AnimatedGraphic() : SDLGameObject() {
     m_currentFrame = 0;
 }
 
@@ -22,4 +22,8 @@ void AnimatedGraphic::update() {}
 
 void AnimatedGraphic::clean() {
     SDLGameObject::clean();
+}
+
+void AnimatedGraphic::load(const LoaderParams* pParams) {
+    SDLGameObject::load(pParams);
 }

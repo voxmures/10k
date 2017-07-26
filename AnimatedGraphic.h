@@ -8,11 +8,13 @@ using namespace std;
 
 class AnimatedGraphic : public SDLGameObject {
 public:
-    AnimatedGraphic(const LoaderParams* pParams);
+    AnimatedGraphic();
 
     virtual void draw();
     virtual void update();
     virtual void clean();
+
+    virtual void load(const LoaderParams* pParams);
 };
 
 

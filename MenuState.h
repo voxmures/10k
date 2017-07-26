@@ -2,32 +2,35 @@
 #define __MenuState__
 
 #include <vector>
-
 #include "GameState.h"
-#include "GameObject.h"
+#include "MenuButton.h"
 
 using namespace std;
 
 class MenuState : public GameState {
 public:
-    MenuState() {};
-
-    virtual void update();
-    virtual void render();
+    void update();
+    void render();
 
     virtual bool onEnter();
     virtual bool onExit();
 
-    virtual string getStateId() const { return s_menuId; }
-
-private:
-    static const string s_menuId;
+protected:
+    typedef void(*Callback)();
+    virtual void setCallbacks(const vector<Callback>& callbacks) = 0;
+    vector<Callback> m_callbacks;
 
     vector<GameObject*> m_gameObjects;
+    vector<string> m_textureIdList;
 
-    // callback functions for menu items
-    static void s_menuToPlay();
-    static void s_exitFromMenu();
+private:
+    void initMenuButtons();
+
+    vector<MenuButton*> m_menuButtons;
+    int selectedIndex;
+
+    bool m_bReleased;
+    void handleInput();
 };
 
 #endif // __MenuState__

@@ -1,55 +1,29 @@
 #include "MenuState.h"
 
-#include <stdio.h>
-#include "Game.h"
+#include "InputHandler.h"
 #include "TextureManager.h"
 
-#include "PlayState.h"
-#include "MenuButton.h"
-#include "MenuButtonContainer.h"
-
-const string MenuState::s_menuId = "MENU";
+int selectedIndex = 0;
+bool m_bReleased = false;
 
 void MenuState::update() {
-    int nObjects = m_gameObjects.size();
-    int i = 0;
-    while(i < nObjects) {
-        m_gameObjects[i]->update();
-        nObjects = m_gameObjects.size();
-        ++i;
+    int tempSelectedIndex = selectedIndex;
+    handleInput();
+
+    if (tempSelectedIndex != selectedIndex) {
+        m_menuButtons[tempSelectedIndex]->setState(false);
+        m_menuButtons[selectedIndex]->setState(true);
     }
 }
 
 void MenuState::render() {
-    for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
+    for (int i = 0; i != m_gameObjects.size(); i++) {
         m_gameObjects[i]->draw();
     }
 }
 
 bool MenuState::onEnter() {
-    if (!TheTextureManager::Instance()->load("assets/play.png",
-        "playbutton", TheGame::Instance()->getRenderer())) {
-            return false;
-        }
-
-    if (!TheTextureManager::Instance()->load("assets/exit.png",
-        "exitbutton", TheGame::Instance()->getRenderer())) {
-            return false;
-        }
-
-
-    MenuButton* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "playbutton"), s_menuToPlay);
-    button1->setState(true);
-    MenuButton* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "exitbutton"), s_exitFromMenu);
-
-    MenuButtonContainer* menuButtonContainer = new MenuButtonContainer();
-
-    menuButtonContainer->addButton(button1);
-    menuButtonContainer->addButton(button2);
-
-    m_gameObjects.push_back(menuButtonContainer);
-
-    printf("Entering MenuState\n");
+    initMenuButtons();
     return true;
 }
 
@@ -58,21 +32,61 @@ bool MenuState::onExit() {
         m_gameObjects[i]->clean();
     }
     m_gameObjects.clear();
+    m_menuButtons.clear();
 
-    TheTextureManager::Instance()->clearFromTextureMap("playbutton");
-    TheTextureManager::Instance()->clearFromTextureMap("exitbutton");
+    for (int i = 0; i < m_textureIdList.size(); i++) {
+        TheTextureManager::Instance()->clearFromTextureMap(m_textureIdList[i]);
+    }
 
-    printf("Exiting MenuState\n");
     return true;
 }
 
-void MenuState::s_menuToPlay() {
-    printf("Play button pressed!\n");
-    TheGame::Instance()->getGameStateMachine()->changeState(new PlayState());
-    printf("State changed to play\n");
+void MenuState::initMenuButtons() {
+    for (int i = 0; i < m_gameObjects.size(); i++) {
+        if (dynamic_cast<MenuButton*>(m_gameObjects[i])) {
+            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+            m_menuButtons.push_back(pButton);
+        }
+    }
 }
 
-void MenuState::s_exitFromMenu() {
-    printf("Exit button pressed!\n");
-    TheGame::Instance()->quit();
+void MenuState::handleInput() {
+    if (TheInputHandler::Instance()->joysticksInitialised()) {
+        if (TheInputHandler::Instance()->yvalue(0, 1) > 0) {
+            selectedIndex += 1;
+            if (selectedIndex == m_menuButtons.size()) {
+                selectedIndex = 0;
+            }
+        }
+        if (TheInputHandler::Instance()->yvalue(0, 1) < 0) {
+            selectedIndex -= 1;
+            if (selectedIndex < 0) {
+                selectedIndex = m_menuButtons.size() - 1;
+            }
+        }
+    }
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN) && m_bReleased) {
+        m_menuButtons[selectedIndex]->doAction();
+        m_bReleased = false;
+    }
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) && m_bReleased) {
+        selectedIndex -= 1;
+        if (selectedIndex < 0) {
+            selectedIndex = m_menuButtons.size() - 1;
+        }
+        m_bReleased = false;
+    }
+    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) && m_bReleased) {
+        selectedIndex += 1;
+        if (selectedIndex == m_menuButtons.size()) {
+            selectedIndex = 0;
+        }
+        m_bReleased = false;
+    }
+    else if (!TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) &&
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) &&
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+        m_bReleased = true;
+    }
 }

@@ -12,8 +12,9 @@
 
 #include "TextureManager.h"
 #include "InputHandler.h"
+#include "GameObjectFactory.h"
 
-#include "MenuState.h"
+#include "MainMenuState.h"
 #include "PlayState.h"
 #include "Player.h"
 #include "Enemy.h"
@@ -53,8 +54,10 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
 
     TheInputHandler::Instance()->initialiseJoysticks();
 
+    TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());
+
     m_pGameStateMachine = new GameStateMachine();
-    m_pGameStateMachine->changeState(new MenuState());
+    m_pGameStateMachine->changeState(new MainMenuState());
 
     m_bRunning = true;
     return true;
@@ -89,11 +92,11 @@ void Game::quit() {
     m_bRunning = false;
 }
 
-GameStateMachine* Game::getGameStateMachine() { 
+GameStateMachine* Game::getGameStateMachine() {
     if (m_pGameStateMachine)
        printf("Hay un gameStateMachine \n");
     else
         printf("No hay gameStateMachine en el TheGame \n");
-        
-    return m_pGameStateMachine; 
+
+    return m_pGameStateMachine;
 }

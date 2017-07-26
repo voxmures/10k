@@ -12,7 +12,7 @@
 	#include <SDL.h>
 #endif
 
-Enemy::Enemy(const LoaderParams* pParams) : SDLGameObject(pParams) {}
+Enemy::Enemy() : SDLGameObject() {}
 
 void Enemy::draw() {
     SDLGameObject::draw();
@@ -27,6 +27,14 @@ void Enemy::update() {
     m_currentFrame = int(((SDL_GetTicks() / 100) % 6));
 
     SDLGameObject::update();
+}
+
+void Enemy::clean() {
+    SDLGameObject::clean();
+}
+
+void Enemy::load(const LoaderParams* pParams) {
+    SDLGameObject::load(pParams);
 }
 
 void Enemy::nextAction() {
@@ -69,11 +77,8 @@ void Enemy::nextAction() {
             m_velocity.setX(0);
             break;
     }
-
 }
 
 void Enemy::setPlayerPos(Vector2D& pos) {
     playerPos = &pos;
 }
-
-void Enemy::clean() {}
