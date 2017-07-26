@@ -14,6 +14,11 @@ void MenuState::update() {
         m_menuButtons[tempSelectedIndex]->setState(false);
         m_menuButtons[selectedIndex]->setState(true);
     }
+
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN) && m_bReleased) {
+        m_menuButtons[selectedIndex]->doAction();
+        m_bReleased = false;
+    }
 }
 
 void MenuState::render() {
@@ -76,11 +81,7 @@ void MenuState::handleInput() {
         }
     }
 
-    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN) && m_bReleased) {
-        m_menuButtons[selectedIndex]->doAction();
-        m_bReleased = false;
-    }
-    else if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) && m_bReleased) {
+    if (TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) && m_bReleased) {
         selectedIndex -= 1;
         if (selectedIndex < 0) {
             selectedIndex = m_menuButtons.size() - 1;
@@ -95,8 +96,7 @@ void MenuState::handleInput() {
         m_bReleased = false;
     }
     else if (!TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) &&
-             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) &&
-             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
         m_bReleased = true;
     }
 }
