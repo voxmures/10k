@@ -44,7 +44,7 @@
     </TEXTURES>
 
     <OBJECTS>
-        <object type="AnimatedGraphic" x="70" y="100" width="485" height="67" textureID="gameover" numFrames="0" />
+        <object type="AnimatedGraphic" x="70" y="100" width="485" height="67" textureID="gameover" numFrames="1" animSpeed="1" />
         <object type="MenuButton" x="100" y="180" width="400" height="100" textureID="mainbutton" numFrames="0" callbackID="1" selected="selected" />
         <object type="MenuButton" x="100" y="300" width="400" height="100" textureID="retrybutton" numFrames="0" callbackID="2" />
     </OBJECTS>

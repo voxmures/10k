@@ -10,20 +10,23 @@
 
 #include "InputHandler.h"
 
-AnimatedGraphic::AnimatedGraphic() : SDLGameObject() {
+AnimatedGraphic::AnimatedGraphic() : SDLGameObject() {}
+
+void AnimatedGraphic::load(const LoaderParams* pParams) {
+    SDLGameObject::load(pParams);
     m_currentFrame = 0;
+    m_animSpeed = pParams->getAnimSpeed();
 }
 
 void AnimatedGraphic::draw() {
     SDLGameObject::draw();
 }
 
-void AnimatedGraphic::update() {}
+void AnimatedGraphic::update() {
+    m_currentFrame = 0;
+    //m_currentFrame = int(((SDL_GetTicks() / (1000 / m_animSpeed)) % m_numFrames));
+}
 
 void AnimatedGraphic::clean() {
     SDLGameObject::clean();
-}
-
-void AnimatedGraphic::load(const LoaderParams* pParams) {
-    SDLGameObject::load(pParams);
 }

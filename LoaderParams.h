@@ -17,6 +17,7 @@ public:
     int getHeight() const { return m_height; }
     int getNumFrames() const { return m_numFrames; }
     int getCallbackId() const { return m_callbackId; }
+    int getAnimSpeed() const { return m_animSpeed; }
     bool selected() const { return m_selected; }
     string getTextureId() const { return m_textureId; }
 

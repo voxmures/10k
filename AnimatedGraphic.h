@@ -16,6 +16,9 @@ public:
     virtual void clean();
 
     virtual void load(const LoaderParams* pParams);
+
+private:
+    int m_animSpeed;
 };
 
 class AnimatedGraphicCreator : public BaseCreator {
