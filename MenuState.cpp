@@ -1,5 +1,6 @@
 #include "MenuState.h"
 
+#include <iostream>
 #include "InputHandler.h"
 #include "TextureManager.h"
 
@@ -44,22 +45,16 @@ bool MenuState::onExit() {
     }
     m_textureIdList.clear();
 
-    return true;
-}
+    m_callbacks.clear();
 
-void MenuState::setCallbacks(const vector<Callback> &callbacks) {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        if (dynamic_cast<MenuButton*>(m_gameObjects[i])) {
-            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
-            pButton->setCallback(callbacks[pButton->getCallbackId()]);
-        }
-    }
+    return true;
 }
 
 void MenuState::initMenuButtons() {
     for (int i = 0; i < m_gameObjects.size(); i++) {
         if (dynamic_cast<MenuButton*>(m_gameObjects[i])) {
             MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+            pButton->setCallback(m_callbacks[pButton->getCallbackId()]);
             m_menuButtons.push_back(pButton);
         }
     }
@@ -96,7 +91,8 @@ void MenuState::handleInput() {
         m_bReleased = false;
     }
     else if (!TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_DOWN) &&
-             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP)) {
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_UP) &&
+             !TheInputHandler::Instance()->isKeyDown(SDL_SCANCODE_RETURN)) {
         m_bReleased = true;
     }
 }

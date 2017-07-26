@@ -20,8 +20,6 @@ bool PauseState::onEnter() {
     m_callbacks.push_back(s_pauseToMain);
     m_callbacks.push_back(s_resumePlay);
 
-    setCallbacks(m_callbacks);
-
     MenuState::onEnter();
 
     printf("Entering PauseState\n");

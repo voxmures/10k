@@ -22,8 +22,6 @@ bool MainMenuState::onEnter() {
     m_callbacks.push_back(s_menuToPlay);
     m_callbacks.push_back(s_exitFromMenu);
 
-    setCallbacks(m_callbacks);
-
     MenuState::onEnter();
 
     printf("Entering MainMenuState\n");

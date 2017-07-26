@@ -21,8 +21,6 @@ bool GameOverState::onEnter() {
     m_callbacks.push_back(s_gameOverToMain);
     m_callbacks.push_back(s_retryPlay);
 
-    setCallbacks(m_callbacks);
-
     MenuState::onEnter();
 
     printf("Entering GameOverState\n");

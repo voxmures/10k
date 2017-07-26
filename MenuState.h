@@ -17,7 +17,6 @@ public:
 
 protected:
     typedef void(*Callback)();
-    void setCallbacks(const vector<Callback>& callbacks);
     vector<Callback> m_callbacks;
 
     vector<GameObject*> m_gameObjects;

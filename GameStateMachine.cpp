@@ -4,13 +4,15 @@
 bool m_busy = false;
 
 void GameStateMachine::update() {
-    if (!m_gameStates.empty())
+    if (!m_gameStates.empty()) {
         m_gameStates.back()->update();
+    }
 }
 
 void GameStateMachine::render() {
-    if (!m_gameStates.empty())
+    if (!m_gameStates.empty()) {
         m_gameStates.back()->render();
+    }
 }
 
 void GameStateMachine::pushState(GameState* pState) {
