@@ -18,8 +18,6 @@ public:
 private:
     static const string s_menuId;
 
-    void setCallbacks(const vector<Callback>& callbacks);
-
     // callback functions for menu items
     static void s_menuToPlay();
     static void s_exitFromMenu();

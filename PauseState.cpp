@@ -4,70 +4,37 @@
 #include "Game.h"
 #include "TextureManager.h"
 
-#include "MenuState.h"
-#include "MenuButton.h"
-#include "MenuButtonContainer.h"
+#include "MainMenuState.h"
+#include "StateParser.h"
 
 const string PauseState::s_pauseId = "PAUSE";
 
-void PauseState::update() {
-    int nObjects = m_gameObjects.size();
-    int i = 0;
-    while(i < nObjects) {
-        m_gameObjects[i]->update();
-        nObjects = m_gameObjects.size();
-        ++i;
-    }
-}
-
-void PauseState::render() {
-    for (vector<GameObject*>::size_type i = 0; i != m_gameObjects.size(); i++) {
-        m_gameObjects[i]->draw();
-    }
-}
-
 bool PauseState::onEnter() {
-    if (!TheTextureManager::Instance()->load("assets/main_menu.png",
-        "mainbutton", TheGame::Instance()->getRenderer())) {
-            return false;
-        }
+    StateParser stateParser;
+    if (!stateParser.parseState("config.xml", s_pauseId, &m_gameObjects, &m_textureIdList)) {
+        cerr << "Unable to parse the state '" << s_pauseId << "'!" << endl;
+        return false;
+    }
 
-    if (!TheTextureManager::Instance()->load("assets/resume.png",
-        "resumebutton", TheGame::Instance()->getRenderer())) {
-            return false;
-        }
+    m_callbacks.push_back(0); // callbackId starts from 1
+    m_callbacks.push_back(s_pauseToMain);
+    m_callbacks.push_back(s_resumePlay);
 
+    setCallbacks(m_callbacks);
 
-    MenuButton* button1 = new MenuButton(new LoaderParams(100, 100, 400, 100, "mainbutton"), s_pauseToMain);
-    button1->setState(true);
-    MenuButton* button2 = new MenuButton(new LoaderParams(100, 300, 400, 100, "resumebutton"), s_resumePlay);
-
-    MenuButtonContainer* menuButtonContainer = new MenuButtonContainer();
-
-    menuButtonContainer->addButton(button1);
-    menuButtonContainer->addButton(button2);
-
-    m_gameObjects.push_back(menuButtonContainer);
+    MenuState::onEnter();
 
     printf("Entering PauseState\n");
     return true;
 }
 
 bool PauseState::onExit() {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        m_gameObjects[i]->clean();
-    }
-    m_gameObjects.clear();
-
-    TheTextureManager::Instance()->clearFromTextureMap("mainbutton");
-    TheTextureManager::Instance()->clearFromTextureMap("resumebutton");
-
     printf("Exiting PauseState\n");
-    return true;
+    return MenuState::onExit();
 }
 
 void PauseState::s_pauseToMain() {
-    TheGame::Instance()->getGameStateMachine()->changeState(new MenuState());
+    TheGame::Instance()->getGameStateMachine()->changeState(new MainMenuState());
 }
 
 void PauseState::s_resumePlay() {

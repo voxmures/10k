@@ -2,6 +2,7 @@
 #define __Enemy__
 
 #include "SDLGameObject.h"
+#include "GameObjectFactory.h"
 #include "Vector2D.h"
 
 using namespace std;
@@ -22,6 +23,12 @@ private:
     Vector2D* playerPos;
 
     void nextAction();
+};
+
+class EnemyCreator : public BaseCreator {
+    GameObject* createGameObject() const {
+        return new Enemy();
+    }
 };
 
 

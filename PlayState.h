@@ -23,6 +23,7 @@ private:
     static const string s_playId;
 
     vector<GameObject*> m_gameObjects;
+    vector<string> m_textureIdList;
     AgentsHub hub;
 };
 

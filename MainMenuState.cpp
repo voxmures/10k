@@ -35,15 +35,6 @@ bool MainMenuState::onExit() {
     return MenuState::onExit();
 }
 
-void MainMenuState::setCallbacks(const vector<Callback> &callbacks) {
-    for (int i = 0; i < m_gameObjects.size(); i++) {
-        if (dynamic_cast<MenuButton*>(m_gameObjects[i])) {
-            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
-            pButton->setCallback(callbacks[pButton->getCallbackId()]);
-        }
-    }
-}
-
 void MainMenuState::s_menuToPlay() {
     TheGame::Instance()->getGameStateMachine()->changeState(new PlayState());
 }

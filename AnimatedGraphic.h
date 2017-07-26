@@ -2,6 +2,7 @@
 #define __AnimatedGraphic__
 
 #include "SDLGameObject.h"
+#include "GameObjectFactory.h"
 #include "Vector2D.h"
 
 using namespace std;
@@ -15,6 +16,12 @@ public:
     virtual void clean();
 
     virtual void load(const LoaderParams* pParams);
+};
+
+class AnimatedGraphicCreator : public BaseCreator {
+    GameObject* createGameObject() const {
+        return new AnimatedGraphic();
+    }
 };
 
 

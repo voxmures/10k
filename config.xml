@@ -13,8 +13,40 @@
 </MENU>
 
 <PLAY>
+    <TEXTURES>
+        <texture filename="assets/sonic_spritesheet.png" ID="sonic" />
+        <texture filename="assets/robotnic.png" ID="robotnic" />
+    </TEXTURES>
+
+    <OBJECTS>
+        <object type="Player" x="100" y="100" width="26" height="35" textureID="sonic" numFrames="6" />
+        <object type="Enemy" x="200" y="200" width="90" height="55" textureID="robotnic" numFrames="7" />
+    </OBJECTS>
 </PLAY>
 
+<PAUSE>
+    <TEXTURES>
+        <texture filename="assets/main_menu.png" ID="mainbutton" />
+        <texture filename="assets/resume.png" ID="resumebutton" />
+    </TEXTURES>
+
+    <OBJECTS>
+        <object type="MenuButton" x="100" y="100" width="400" height="100" textureID="mainbutton" numFrames="0" callbackId="1" selected="selected" />
+        <object type="MenuButton" x="100" y="300" width="400" height="100" textureID="resumebutton" numFrames="0" callbackId="2" />
+    </OBJECTS>
+</PAUSE>
+
 <GAMEOVER>
+    <TEXTURES>
+        <texture filename="assets/gameover.png" ID="gameover" />
+        <texture filename="assets/main_menu.png" ID="mainbutton" />
+        <texture filename="assets/retry.png" ID="retrybutton" />
+    </TEXTURES>
+
+    <OBJECTS>
+        <object type="AnimatedGraphic" x="70" y="100" width="485" height="67" textureID="gameover" numFrames="0" />
+        <object type="MenuButton" x="100" y="180" width="400" height="100" textureID="mainbutton" numFrames="0" callbackId="1" selected="selected" />
+        <object type="MenuButton" x="100" y="300" width="400" height="100" textureID="retrybutton" numFrames="0" callbackId="2" />
+    </OBJECTS>
 </GAMEOVER>
 </STATES>

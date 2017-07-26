@@ -2,28 +2,20 @@
 #define __PauseState__
 
 #include <vector>
-
-#include "GameState.h"
+#include "MenuState.h"
 #include "GameObject.h"
 
 using namespace std;
 
-class PauseState : public GameState {
+class PauseState : public MenuState {
 public:
-    PauseState() {};
+    bool onEnter();
+    bool onExit();
 
-    virtual void update();
-    virtual void render();
-
-    virtual bool onEnter();
-    virtual bool onExit();
-
-    virtual string getStateId() const { return s_pauseId; }
+    string getStateId() const { return s_pauseId; }
 
 private:
     static const string s_pauseId;
-
-    vector<GameObject*> m_gameObjects;
 
     // callback functions for menu items
     static void s_pauseToMain();

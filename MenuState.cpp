@@ -37,8 +37,18 @@ bool MenuState::onExit() {
     for (int i = 0; i < m_textureIdList.size(); i++) {
         TheTextureManager::Instance()->clearFromTextureMap(m_textureIdList[i]);
     }
+    m_textureIdList.clear();
 
     return true;
+}
+
+void MenuState::setCallbacks(const vector<Callback> &callbacks) {
+    for (int i = 0; i < m_gameObjects.size(); i++) {
+        if (dynamic_cast<MenuButton*>(m_gameObjects[i])) {
+            MenuButton* pButton = dynamic_cast<MenuButton*>(m_gameObjects[i]);
+            pButton->setCallback(callbacks[pButton->getCallbackId()]);
+        }
+    }
 }
 
 void MenuState::initMenuButtons() {
