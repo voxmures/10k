@@ -53,6 +53,9 @@ bool Game::init(const char* title, int xpos, int ypos, int width, int height, in
         return false;
     }
 
+    m_gameWidth = width;
+    m_gameHeight = height;
+
     TheInputHandler::Instance()->initialiseJoysticks();
 
     TheGameObjectFactory::Instance()->registerType("MenuButton", new MenuButtonCreator());

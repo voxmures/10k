@@ -6,6 +6,7 @@
 #include "TextureManager.h"
 #include "Game.h"
 #include "StateParser.h"
+#include "LevelParser.h"
 
 #include "PauseState.h"
 #include "GameOverState.h"
@@ -32,6 +33,8 @@ void PlayState::update() {
 }
 
 void PlayState::render() {
+    pLevel->render();
+
     for (int i = 0; i < m_gameObjects.size(); i++) {
         m_gameObjects[i]->draw();
     }
@@ -40,6 +43,9 @@ void PlayState::render() {
 bool PlayState::onEnter() {
     StateParser stateParser;
     stateParser.parseState("config.xml", s_playId, &m_gameObjects, &m_textureIdList);
+
+    LevelParser levelParser;
+    pLevel = levelParser.parseLevel("assets/test.tmx");
 
     // Setting agents hub
     Player* player;

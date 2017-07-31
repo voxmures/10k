@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "GameState.h"
 #include "AgentsHub.h"
+#include "Level.h"
 
 using namespace std;
 
@@ -25,6 +26,8 @@ private:
     vector<GameObject*> m_gameObjects;
     vector<string> m_textureIdList;
     AgentsHub hub;
+
+    Level* pLevel;
 };
 
 #endif // __PlayState__
