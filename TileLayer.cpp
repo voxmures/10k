@@ -35,7 +35,6 @@ void TileLayer::render() {
             Tileset tileset = getTilesetById(id);
             id--;
 
-            //cout << tileset.margin << endl;
             TheTextureManager::Instance()->drawTile(tileset.name, 0, 0, (j * m_tileSize) - x2,
                 (i * m_tileSize) - y2, m_tileSize, m_tileSize, (id - (tileset.firstGridId - 1)) / tileset.numColumns,
                 (id - (tileset.firstGridId - 1)) % tileset.numColumns, TheGame::Instance()->getRenderer());
@@ -44,6 +43,10 @@ void TileLayer::render() {
 }
 
 Tileset TileLayer::getTilesetById(int tileId) {
+    return m_tilesets[0];
+
+    // TODO: FIX THIS!!
+
     for (int i = 0; i < m_tilesets.size(); i++) {
         if (i + 1 <= m_tilesets.size() - 1) {
             if (tileId >= m_tilesets[i].firstGridId && tileId < m_tilesets[i + 1].firstGridId) {
